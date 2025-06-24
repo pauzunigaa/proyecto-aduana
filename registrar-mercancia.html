@@ -15,7 +15,7 @@
   <div>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#"><img src="img/logo.png" alt="" /></a>
+        <a class="navbar-brand" href="#"><img src="img/logo.png" alt=""></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
           aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -25,41 +25,100 @@
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="index.html">Home</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Registrar Mercancia</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Validar Documentos</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Link</a>
-            </li>
+
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                 aria-expanded="false">
-                Información
+                Acciones
               </a>
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Centro de ayuda</a></li>
-                <li><a class="dropdown-item" href="#">Contacto</a></li>
+                <li>
+                  <a class="dropdown-item" href="notificaciones.html">Notificaciones</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="generar-reportes-usuario.html">Generar Reportes</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="registrar-mercancia.html">Registrar Mercancia</a>
+                </li>
               </ul>
             </li>
+
             <li class="nav-item">
-              <a class="nav-link" href="registrarse.html">Registrarse</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+              <a class="nav-link" href="index.html">Cerrar Sesión</a>
             </li>
           </ul>
           <form class="d-flex" role="search">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+            <input class="form-control me-2" type="search" placeholder="Buscar..." aria-label="Search" />
             <button class="btn btn-outline-success" type="submit">
-              Search
+              Buscar
             </button>
           </form>
         </div>
       </div>
     </nav>
+    <div class="container">
+      <div class="row">
+        <form id="form-mercancia" class="col-6 mx-auto mt-4">
+          <h3 class="mb-4">Registrar Mercancía</h3>
+
+          <div class="mb-3">
+            <label for="nombreProducto" class="form-label">Nombre del Producto</label>
+            <input type="text" class="form-control" id="nombreProducto" />
+          </div>
+
+          <div class="mb-3">
+            <label for="tipoMercancia" class="form-label">Tipo de Mercancía</label>
+            <select class="form-select" id="tipoMercancia">
+              <option value="">Seleccione un tipo</option>
+              <option value="alimentos">Alimentos</option>
+              <option value="tecnologia">Tecnología</option>
+              <option value="ropa">Ropa</option>
+              <option value="otros">Otros</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label for="peso" class="form-label">Peso (kg)</label>
+            <input type="number" class="form-control" id="peso" />
+          </div>
+
+          <div class="mb-3">
+            <label for="cantidad" class="form-label">Cantidad</label>
+            <input type="number" class="form-control" id="cantidad" />
+          </div>
+
+          <div class="mb-3">
+            <label for="descripcion" class="form-label">Descripción</label>
+            <textarea class="form-control" id="descripcion" rows="3"></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary ">Registrar</button>
+        </form>
+      </div>
+      <div id="alerta" class="alert alert-success d-none col-6 mx-auto my-2" role="alert">
+        Mercancía registrada con éxito ✅
+      </div>
+
+      <div class="row">
+        <div class="col-10 mx-auto">
+          <h4 class="mt-4 mb-2">Mercancías Registradas</h4>
+          <table class="table table-bordered table-striped mt-3">
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>Tipo</th>
+                <th>Peso (kg)</th>
+                <th>Cantidad</th>
+                <th>Descripción</th>
+              </tr>
+            </thead>
+            <tbody id="tabla-mercancias"></tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
 
     <footer id="footer">
       <div class="auxi table">
@@ -127,6 +186,76 @@
       <div class="separa"></div>
     </footer>
   </div>
+  <script>
+    const form = document.getElementById("form-mercancia");
+    const tbody = document.getElementById("tabla-mercancias");
+    const alerta = document.getElementById("alerta");
+
+    const mercanciasIniciales = [
+      {
+        nombre: "Smartphones",
+        tipo: "tecnologia",
+        peso: 45,
+        cantidad: 30,
+        descripcion: "Modelos recientes de gama media"
+      },
+      {
+        nombre: "Poleras de algodón",
+        tipo: "ropa",
+        peso: 80,
+        cantidad: 200,
+        descripcion: "Tallas mixtas, varios colores"
+      },
+      {
+        nombre: "Consolas de videojuegos",
+        tipo: "tecnologia",
+        peso: 60,
+        cantidad: 20,
+        descripcion: "Consolas PS5, Xbox y Switch"
+      }
+    ];
+
+    // Función para agregar una fila a la tabla
+    const agregarAFila = (mercancia) => {
+      const fila = document.createElement("tr");
+      fila.innerHTML = `
+      <td>${mercancia.nombre}</td>
+      <td>${mercancia.tipo}</td>
+      <td>${mercancia.peso}</td>
+      <td>${mercancia.cantidad}</td>
+      <td>${mercancia.descripcion}</td>
+    `;
+      tbody.appendChild(fila);
+    };
+
+    // Precargar datos
+    mercanciasIniciales.forEach(agregarAFila);
+
+    // Manejador de formulario
+    form?.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      const nueva = {
+        nombre: document.getElementById("nombreProducto").value,
+        tipo: document.getElementById("tipoMercancia").value,
+        peso: document.getElementById("peso").value,
+        cantidad: document.getElementById("cantidad").value,
+        descripcion: document.getElementById("descripcion").value
+      };
+
+      agregarAFila(nueva);
+
+      form.reset();
+
+      // Mostrar alerta
+      alerta.classList.remove("d-none");
+      setTimeout(() => {
+        alerta.classList.add("d-none");
+      }, 3000);
+    });
+  </script>
+
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
     crossorigin="anonymous"></script>
