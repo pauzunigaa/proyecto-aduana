@@ -1,0 +1,127 @@
+html,
+body {
+    height: 100%;
+    margin: 0;
+}
+
+.wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+}
+
+/* Footer general */
+#footer {
+    background-color: #002f6c;
+    /* azul institucional */
+    color: white;
+    padding: 40px 20px;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+}
+
+.auxi-col,
+.separa,
+.bg-bicolor {
+    background-color: #002f6c !important;
+    color: white !important;
+
+}
+
+/* Separación entre columnas */
+.fila {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+/* Cada celda o columna */
+.cell {
+    padding: 10px;
+}
+
+/* Título principal */
+.tit-footer {
+    font-weight: bold;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+.bajada-footer {
+    margin: 10px 0;
+}
+
+/* Enlace "ver mapa" */
+.ver-mapa {
+    display: inline-block;
+    margin-top: 10px;
+    color: white;
+    text-decoration: underline;
+}
+
+/* Redes sociales */
+.redes-footer {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.redes-footer li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.redes-footer img {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+.redes-footer .tit {
+    color: white;
+}
+
+/* Accesos directos */
+.titular {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.accesos-footer {
+    list-style: none;
+    padding-left: 0;
+}
+
+.accesos-footer li a {
+    color: white;
+    text-decoration: underline;
+    display: block;
+    margin-bottom: 6px;
+}
+
+/* Imagen final tipo sello (columna derecha) */
+.img-footer img {
+    max-width: 100%;
+}
+
+/* Responsive (móvil) */
+@media (max-width: 768px) {
+    .fila {
+        flex-direction: column;
+    }
+
+    .cell {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+}
+
+#footer .auxi.table .fila.row.esp>.cell.col+.cell.col {
+    border-left: 1px solid #FFF;
+    float: none;
+}
