@@ -13,7 +13,11 @@ body {
 main {
     flex: 1;
 }
+a.navbar-brand img { 
+  max-width: auto; 
+  height: 120px;
 
+}
 /* Footer general */
 #footer {
     background-color: #002f6c;
