@@ -35,9 +35,7 @@
                 <li>
                   <a class="dropdown-item" href="validar-documentacion.html">Validar Documentación</a>
                 </li>
-                <li>
-                  <a class="dropdown-item" href="generar-reportes.html">Generar Reportes</a>
-                </li>
+
               </ul>
             </li>
 
@@ -56,19 +54,22 @@
     </nav>
     <main class="container">
       <div class="row">
-        <form class="col-6 mx-auto mt-4">
+        <form id="form-validacion" class="col-6 mx-auto mt-4">
           <div class="mb-3">
-            <label for="exampleInputPassword1" class="form-label">Rut</label>
-            <input type="text" class="form-control" id="exampleInputPassword1" />
+            <label for="inputRut" class="form-label">Rut</label>
+            <input type="text" class="form-control" id="inputRut" />
           </div>
 
           <div class="mb-3">
-            <label for="exampleInputPassword1" class="form-label">Id documento</label>
-            <input type="text" class="form-control" id="exampleInputPassword1" />
+            <label for="inputDocumento" class="form-label">Id documento</label>
+            <input type="text" class="form-control" id="inputDocumento" />
           </div>
 
-          <button type="submit" class="btn btn-primary">Validar</button>
+          <button type="submit" class="btn btn-primary mb-3">Validar</button>
         </form>
+
+        <div id="resultado-validacion" class="alert d-none mt-3" role="alert"></div>
+
       </div>
     </main>
     <footer id="footer">
@@ -138,17 +139,38 @@
     </footer>
   </div>
   <script>
-    //Simula el estado del usuario (esto vendría del backend normalmente)
-    const isLoggedIn = true;
-    const isAdmin = true;
 
-    if (!isLoggedIn) {
-      document.getElementById("navbar-guest").classList.remove("d-none");
-    } else if (isAdmin) {
-      document.getElementById("navbar-admin").classList.remove("d-none");
-    } else {
-      document.getElementById("navbar-user").classList.remove("d-none");
-    }
+    const formulario = document.getElementById("form-validacion");
+    const inputDocumento = document.getElementById("inputDocumento");
+    const resultado = document.getElementById("resultado-validacion");
+
+    // Simulación de IDs válidos
+    const documentosValidos = ["ABC123", "DOC456", "XYZ789"];
+
+    formulario.addEventListener("submit", (evento) => {
+      evento.preventDefault();
+
+      const idIngresado = inputDocumento.value.trim().toUpperCase();
+
+      if (documentosValidos.includes(idIngresado)) {
+        resultado.textContent = "✅ Documento válido";
+        resultado.classList.remove("d-none", "alert-danger");
+        resultado.classList.add("alert-success");
+      } else {
+        resultado.textContent = "❌ Documento inválido";
+        resultado.classList.remove("d-none", "alert-success");
+        resultado.classList.add("alert-danger");
+      }
+
+      // Limpiar campo
+      inputDocumento.value = "";
+
+      // Ocultar alerta después de 3 segundos
+      setTimeout(() => {
+        resultado.classList.add("d-none");
+      }, 3000);
+    });
+
   </script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
